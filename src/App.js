@@ -19,10 +19,7 @@ function App() {
             <AddItem handleFilter={handleFilter} filter={filter} ></AddItem>
             <ListItems Items={filter?Items.filter(el=>el.isDone):Items}/>
         </Container>
-        <Switch>
-      {/* <Route exact={true}  path="/" render={(props)=><TodoList></TodoList>}/> */}
-      <Route  exact path={`/edit/:description`} render={(props)=><EditItem Items={Items}{...props}></EditItem>}/>
-      </Switch>
+        
     </div>
   );
 }

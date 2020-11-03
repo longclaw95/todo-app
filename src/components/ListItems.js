@@ -21,9 +21,9 @@ const ListItems = ({Items}) => {
             {item.description}
           </p>
                 <Button variant="danger" onClick={() => dispatch(DeleteItem(item.id))}>Delete</Button>
-                <Link to = {`/edit/${item.description}`}>
-                <Button variant="primary">Edit</Button>
-                </Link>
+                
+                <Button variant="primary"><EditItem item={item}></EditItem></Button>
+                
                 <Button variant="secondary"onClick={() => dispatch(completeItem(item.id))}>{item.isDone ? "is Done" : "Not Done"}</Button></ListGroup.Item>
              </ListGroup>
                 )} 

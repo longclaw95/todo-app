@@ -1,19 +1,47 @@
 import React,{useState} from 'react'
-import {Form,Button} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
-const EditItem = ({Items,match}) => {
+import {Modal,Button,FormControl} from 'react-bootstrap'
+import {useDispatch} from 'react-redux'
+import { editItem } from '../js/actions/ActionTaks'
+
+const EditItem = ({item}) => {
     
-    const selected_item = Items.filter( element => element.description===match.params.description)
-    console.log(selected_item)
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const dispatch = useDispatch();
+    const [input, setinput] = useState(item.description);
+    const edit = () => {
+        dispatch(editItem({ id: item.id, description: input }));
+      };
     return (
         
-        <Form.Group>
-            
-            <Form.Control size="lg" type="text" placeholder="Edit" value={match.params.description}  />
-            <Link to='/'>
-            <Button variant="primary">Edit Task</Button>
-            </Link>
-        </Form.Group>
+        <>
+      <Button variant="primary" onClick={handleShow}>
+        Edit
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Task</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            <FormControl
+            aria-label="Recipient's username"
+            aria-describedby="basic-addon2"
+            value={input}
+            onChange={(e)=>setinput(e.target.value)}
+          /></Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={()=>{handleClose();setinput(item.description);}} >
+            Close
+          </Button>
+          <Button variant="primary" onClick={()=>{handleClose();edit()}}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
         
     )
 }

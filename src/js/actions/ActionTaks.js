@@ -24,7 +24,7 @@ export const completeItem =(payload) => {
 
 }
 
-export const EditItem =(payload) => {
+export const editItem =(payload) => {
     return {
         type : EDIT_TASK,
         payload,
